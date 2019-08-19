@@ -1,0 +1,46 @@
+# Session 4
+
+
+
+- Style transfer (*session 5*)
+- `keras.layers.Add`
+  - For add, all dimensions should be same
+- `keras.layers.Subtract`
+  - for “removing features”
+- `model.compile(..., metrics=[top_k_categorical_accuracy])` not used nowadays. It gives top 5 correct answers.
+- Resnet, Densenet, Inception, VGG - Classification
+- Yolo, SSD - detection
+- 2 types of going about object detection
+- Don’t use sliding window
+- Before Yolo, SSD, we used region proposal. RCNN was bad. Then came Fast RCNN (trained on Alexnet)
+- **Yolo vs SSD** vs Yolov2
+- Anchor bounding boxes (5 in Yolo beats SSD)
+- Bounding box doesn’t depend on class we’re trying to detect
+- Annotation is still done by humans
+- NN - Scaling and Skewing invariant, and not rotation invariant
+- Centroid of cell vs centroid of bounding box (cx, cy)
+- why dividing of image into blocks? we’re asking NN whether there’s an object in the image in the block now, reduces computation coz we don’t need to go pixel by pixel also called detecting **object-ness**.
+- NN will hallucinate in middle layers
+- Calculation of anchor boxes
+- Intersection over union (for k-means clustering to make bounding boxes) *(refer session notes)*
+- Yolo will pick top 1 bounding box (without regard for accuracy for that top 1 box)
+- Yolo Loss function
+  - last one is wrt classification (**1** is the object-ness variable per block) - which class?
+  - third one - **1** here stands for object-ness per block per template - is *some* object there? i.e., gives whether object is there or not.
+  - 4th one - opposite of 3rd - lambda is used to punish network in case it predicts object where it shouldn’t have been
+  - 1st - coordinates of bounding box
+  - 2nd - heights and width
+  - 1st and 2nd - lambda is made 0 to allow network to train during initial classification so that a basic location of the object is obtained for the object, then later it’s increased to punish network more and more for further training.
+- Yolo features
+  - Yolo can predict (13x13)x5 objects coz - 13x13 cells, and 5 template boxes per cell
+  - sqrt is so that we can punish the smaller values more than larger values
+  - yolo features
+  - sigmoid in yolo is to keep centroid inside the box
+  - exponential function for width and height coz object can be very small or very large
+  - t_o is object-ness variable
+  - there’s a paper called **you only look twice**, with more bounding boxes
+  - yolo doesn’t give good params in real life, so you change the templates, no of bounding boxes, etc
+- 3c is similar to VGG
+- desnsenet - we can “see different receptive fields”?
+- deadline is 5.30 **pm** 14 days from today
+- 
